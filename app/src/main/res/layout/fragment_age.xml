@@ -12,24 +12,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/pop_500"
-        android:text="Choose your age"
+        android:fontFamily="@font/pop_600"
+        android:text="Choose Your Age 🎯"
         android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/pop_400"
-        android:text="Select age range for better content"
+        android:fontFamily="@font/pop_300"
+        android:text="Select age range for better content."
         android:textColor="@color/black"
-        android:textSize="17sp" />
+        android:textSize="15sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:orientation="horizontal">
 
         <LinearLayout

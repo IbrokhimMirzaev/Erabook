@@ -13,37 +13,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pop_600"
-        android:text="Choose the Book Genre You Like"
+        android:text="Choose the Book Genre You Like ❤️"
         android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/pop_400"
+        android:fontFamily="@font/pop_300"
         android:text="Select your preferred book genre for better content, or you can skip it."
         android:textColor="@color/black"
-        android:textSize="17sp" />
+        android:textSize="15sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/romance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/pop_500"
                 android:text="Romance"
                 android:textAllCaps="false"
@@ -55,40 +52,37 @@
                 android:id="@+id/fantasy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/pop_500"
                 android:text="Action"
-                android:layout_marginStart="10dp"
                 android:textAllCaps="false"
                 android:textColor="@color/mainColor"
-                android:backgroundTint="@color/white"
                 android:textSize="14sp"
+                app:cornerRadius="100dp"
                 app:strokeColor="@color/mainColor"
-                app:strokeWidth="2dp"
-                app:cornerRadius="100dp" />
+                app:strokeWidth="2dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/scientific"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/pop_500"
                 android:text="Scientific"
-                android:layout_marginStart="10dp"
                 android:textAllCaps="false"
                 android:textColor="@color/mainColor"
-                android:backgroundTint="@color/white"
                 android:textSize="14sp"
+                app:cornerRadius="100dp"
                 app:strokeColor="@color/mainColor"
-                app:strokeWidth="2dp"
-                app:cornerRadius="100dp" />
+                app:strokeWidth="2dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
@@ -96,102 +90,95 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/pop_500"
                 android:text="Comedy"
                 android:textAllCaps="false"
                 android:textColor="@color/mainColor"
-                android:backgroundTint="@color/white"
                 android:textSize="14sp"
+                app:cornerRadius="100dp"
                 app:strokeColor="@color/mainColor"
-                app:strokeWidth="2dp"
-                app:cornerRadius="100dp" />
+                app:strokeWidth="2dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/thriller"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/pop_500"
                 android:text="Thriller"
-                android:layout_marginStart="10dp"
                 android:textAllCaps="false"
                 android:textColor="@color/mainColor"
-                android:backgroundTint="@color/white"
                 android:textSize="14sp"
+                app:cornerRadius="100dp"
                 app:strokeColor="@color/mainColor"
-                app:strokeWidth="2dp"
-                app:cornerRadius="100dp" />
+                app:strokeWidth="2dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/adventure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/pop_500"
                 android:text="Adventure"
-                android:layout_marginStart="10dp"
                 android:textAllCaps="false"
                 android:textColor="@color/mainColor"
-                android:backgroundTint="@color/white"
                 android:textSize="14sp"
+                app:cornerRadius="100dp"
                 app:strokeColor="@color/mainColor"
-                app:strokeWidth="2dp"
-                app:cornerRadius="100dp" />
+                app:strokeWidth="2dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/childrens"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/pop_500"
                 android:text="Children's"
                 android:textAllCaps="false"
                 android:textColor="@color/mainColor"
-                android:backgroundTint="@color/white"
                 android:textSize="14sp"
+                app:cornerRadius="100dp"
                 app:strokeColor="@color/mainColor"
-                app:strokeWidth="2dp"
-                app:cornerRadius="100dp" />
+                app:strokeWidth="2dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/biography"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/pop_500"
                 android:text="Biography"
-                android:layout_marginStart="10dp"
                 android:textAllCaps="false"
                 android:textColor="@color/mainColor"
-                android:backgroundTint="@color/white"
                 android:textSize="14sp"
+                app:cornerRadius="100dp"
                 app:strokeColor="@color/mainColor"
-                app:strokeWidth="2dp"
-                app:cornerRadius="100dp" />
+                app:strokeWidth="2dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/travel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/pop_500"
                 android:text="Travel"
-                android:layout_marginStart="10dp"
                 android:textAllCaps="false"
                 android:textColor="@color/mainColor"
-                android:backgroundTint="@color/white"
                 android:textSize="14sp"
+                app:cornerRadius="100dp"
                 app:strokeColor="@color/mainColor"
-                app:strokeWidth="2dp"
-                app:cornerRadius="100dp" />
+                app:strokeWidth="2dp" />
         </LinearLayout>
 
     </LinearLayout>

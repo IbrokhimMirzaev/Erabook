@@ -4,12 +4,15 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.example.medical.R
 import com.example.medical.databinding.FragmentSignUpBinding
 import com.example.medical.model.User
@@ -58,6 +61,12 @@ class SignUpFragment : Fragment() {
                 edit.putString("users", str).apply()
 
                 myDialog.show()
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
+                    myDialog.dismiss()
+                }, 1500)
+
             }
         }
 
@@ -69,25 +78,18 @@ class SignUpFragment : Fragment() {
                 .isEmpty() || binding.emailInputR.text.toString()
                 .isEmpty() || binding.confirmPasswordR.text.toString().isEmpty()
         ) {
+            Toast.makeText(requireContext(), "Fill the gaps", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (binding.passwordR.text.toString() != binding.confirmPasswordR.text.toString()){
-            Toast.makeText(
-                requireContext(),
-                "Your password does not matched",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(requireContext(), "Your password does not matched", Toast.LENGTH_SHORT).show()
             return false
         }
 
         for (i in userList.indices) {
             if (binding.userNameR.text.toString() == userList[i].username) {
-                Toast.makeText(
-                    requireContext(),
-                    "User with this username already registered",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "User with this username already registered", Toast.LENGTH_SHORT).show()
                 return false
             }
         }

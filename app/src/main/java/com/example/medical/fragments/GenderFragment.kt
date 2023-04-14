@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
 import com.example.medical.R
 import com.example.medical.databinding.FragmentGenderBinding
