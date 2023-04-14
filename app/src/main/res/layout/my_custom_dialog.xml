@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="25dp"
+    android:background="@drawable/corner"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:backgroundTint="@color/white"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="50dp">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/success" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pop_600"
+        android:text="Sign up Successful!"
+        android:textAlignment="center"
+        android:textColor="@color/mainColor"
+        android:layout_marginTop="15dp"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pop_400"
+        android:layout_marginTop="15dp"
+        android:text="Your account has been created. Please wait a moment, we are preparing for you..."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

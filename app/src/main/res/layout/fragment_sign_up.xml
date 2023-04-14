@@ -24,26 +24,108 @@
         android:fontFamily="@font/pop_400"
         android:text="Enter your username, email and password. If you forget it, then you have to do forgot password."
         android:textColor="@color/black"
-        android:textSize="17sp" />
+        android:textSize="15sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
-        app:boxStrokeWidthFocused="4dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:hint="Username"
         app:boxStrokeColor="@color/mainColor"
-        app:boxStrokeWidth="2dp"
-        android:hint="Username">
+        app:boxStrokeWidth="1dp"
+        app:hintTextAppearance="@style/TextLabel"
+        app:boxStrokeWidthFocused="2dp"
+        app:expandedHintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameInputReg"
+            android:id="@+id/userNameR"
+            android:paddingStart="0dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="0dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:fontFamily="@font/pop_500"
+            android:fontFamily="@font/pop_600"
             android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:hint="Email"
+        app:boxStrokeColor="@color/mainColor"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:hintTextAppearance="@style/TextLabel"
+        app:expandedHintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailInputR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="0dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/pop_600"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:hint="Password"
+        app:boxStrokeColor="@color/mainColor"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:expandedHintEnabled="false"
+        app:hintTextAppearance="@style/TextLabel"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/pop_600"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:hint="Confirm Password"
+        app:boxStrokeColor="@color/mainColor"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:expandedHintEnabled="false"
+        app:hintTextAppearance="@style/TextLabel"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirmPasswordR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/pop_600"
+            android:inputType="textPassword"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Space
