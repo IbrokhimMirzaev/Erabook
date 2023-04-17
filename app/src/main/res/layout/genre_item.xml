@@ -8,11 +8,13 @@
     tools:ignore="MissingDefaultResource"
     app:cardCornerRadius="15dp">
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/genreImg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/img_2"
         android:scaleType="fitXY"/>
     <TextView
+        android:id="@+id/genreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Romance"

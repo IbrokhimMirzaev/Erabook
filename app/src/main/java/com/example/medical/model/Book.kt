@@ -8,5 +8,5 @@ data class Book(var name : String,
                 var size : String,
                 var price : String,
                 var img : Int,
-                var genres : ArrayList<Genre>,
-                var reviews : ArrayList<Review>)
+                var genres : ArrayList<Genre>?,
+                var reviews : ArrayList<Review>?)
