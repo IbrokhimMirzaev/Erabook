@@ -25,6 +25,8 @@ class HomeFragment : Fragment() {
         binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.purchasedRecycler.adapter = BookAdapter(getBooks())
         binding.purchasedRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.wishlistRecycler.adapter = BookAdapter(getBooks())
+        binding.wishlistRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         return binding.root
     }
     fun getGenres() : ArrayList<Genre> {
