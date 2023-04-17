@@ -22,9 +22,9 @@ class HomeFragment : Fragment() {
         binding.genreRecycler.adapter = GenreAdapter(getGenres())
         binding.genreRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.mainRecycler.adapter = BookAdapter(getBooks())
-        binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.purchasedRecycler.adapter = BookAdapter(getBooks())
-        binding.purchasedRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.purchasedRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         return binding.root
     }
     fun getGenres() : ArrayList<Genre> {
