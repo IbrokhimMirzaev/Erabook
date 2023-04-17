@@ -27,7 +27,7 @@ class SplashFragment : Fragment() {
                 findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment2)
             }
             else {
-                findNavController().navigate(R.id.action_splashFragment_to_homeFragment2)
+                findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
             }
         }, 3000)
         return binding.root
