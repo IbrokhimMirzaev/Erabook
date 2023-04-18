@@ -34,18 +34,23 @@ class SignInFragment : Fragment() {
             }
 
             for (user in userList) {
-                if (binding.usernameOrEmail.text.toString() == user.username && binding.password.text.toString() == user.password) {
+                if ((binding.usernameOrEmail.text.toString() == user.username || binding.usernameOrEmail.text.toString() == user.email) && binding.password.text.toString() == user.password) {
                     Toast.makeText(requireContext(), "Successfully logged in", Toast.LENGTH_SHORT).show()
 
                     findNavController().navigate(R.id.action_signInFragment_to_mainFragment)
 
                     shared.edit().putBoolean("isLoggedOut", false).apply()
+                    shared.edit().putString("active_user", gson.toJson(user)).apply()
 
                     return@setOnClickListener
                 }
             }
 
-            Toast.makeText(requireContext(), "Username or password is incorrect", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Username or password is incorrect",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         return binding.root
