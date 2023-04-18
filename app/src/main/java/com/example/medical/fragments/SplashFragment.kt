@@ -21,10 +21,14 @@ class SplashFragment : Fragment() {
 
         val shared = requireContext().getSharedPreferences("shared", AppCompatActivity.MODE_PRIVATE)
         var users = shared.getString("users", "")
+        var isLoggedOut = shared.getBoolean("isLoggedOut", false)
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (users == "") {
                 findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment2)
+            }
+            else if (isLoggedOut) {
+                findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
             }
             else {
                 findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
