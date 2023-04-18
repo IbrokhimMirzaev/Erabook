@@ -9,10 +9,14 @@ import com.example.medical.R
 import com.example.medical.model.Genre
 import com.google.android.material.imageview.ShapeableImageView
 
-class GenreAdapter(var genres : ArrayList<Genre>) : RecyclerView.Adapter<GenreAdapter.MyHolder>() {
+class GenreAdapter(var genres : ArrayList<Genre>, var myInterface: MyInterface) : RecyclerView.Adapter<GenreAdapter.MyHolder>() {
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var name = itemView.findViewById<TextView>(R.id.genreText)
-        var img = itemView.findViewById<ShapeableImageView>(R.id.genreImg)
+        var name: TextView = itemView.findViewById(R.id.genreText)
+        var img: ShapeableImageView = itemView.findViewById(R.id.genreImg)
+    }
+
+    interface MyInterface {
+        fun onItemTap(name: String)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -27,5 +31,9 @@ class GenreAdapter(var genres : ArrayList<Genre>) : RecyclerView.Adapter<GenreAd
         var genre = genres[position]
         holder.name.text = genre.name
         holder.img.setImageResource(genre.img)
+
+        holder.itemView.setOnClickListener {
+            myInterface.onItemTap(holder.name.text.toString())
+        }
     }
 }
