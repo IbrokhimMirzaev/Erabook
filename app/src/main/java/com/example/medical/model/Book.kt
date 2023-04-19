@@ -11,4 +11,6 @@ data class Book(
     var img: Int,
     var genreName: String,
     var reviews: ArrayList<Review>?,
-)
+    var isSaved: Boolean = false,
+    var isWish: Boolean = false,
+) : java.io.Serializable

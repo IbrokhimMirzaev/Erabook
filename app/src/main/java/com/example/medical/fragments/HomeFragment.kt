@@ -1,5 +1,6 @@
 package com.example.medical.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.medical.R
 import com.example.medical.adapters.BookAdapter
 import com.example.medical.adapters.GenreAdapter
+import com.example.medical.books.BookApi
 import com.example.medical.databinding.FragmentHomeBinding
 import com.example.medical.model.Book
 import com.example.medical.model.Genre
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class HomeFragment : Fragment() {
     override fun onCreateView(
@@ -21,21 +25,56 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+
+        val shared = requireContext().getSharedPreferences("shared", Context.MODE_PRIVATE)
+        val gson = Gson()
+
+        if (shared.getString("books", null) == null) {
+            BookApi(requireContext()).saveAllBooksToShared()
+        }
+
+        var booksJson = shared.getString("books", null)
+        var books = gson.fromJson<ArrayList<Book>>(booksJson, object : TypeToken<ArrayList<Book>>() {}.type)
+
         binding.genreRecycler.adapter = GenreAdapter(getGenres(), object: GenreAdapter.MyInterface {
-            override fun onItemTap(name: String) {
-                val bundle = bundleOf("name" to name, "books" to getBooks())
+            override fun onItemTap(index: Int) {
+                val bundle = bundleOf("index" to index)
                 findNavController().navigate(R.id.genreBooksFragment, bundle)
             }
         })
         binding.genreRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        binding.mainRecycler.adapter = BookAdapter(getBooks())
+        binding.mainRecycler.adapter = BookAdapter(books, R.layout.book_item, object : BookAdapter.MyInterface {
+            override fun onItemTap(index: Int) {
+                var bundle = bundleOf("index" to index)
+                findNavController().navigate(R.id.bookDetailFragment, bundle)
+            }
+        })
         binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        binding.purchasedRecycler.adapter = BookAdapter(getBooks())
+        if ((books.filter { it.isSaved } as ArrayList<Book>).isEmpty()) {
+            binding.box1.visibility = View.VISIBLE
+            binding.purchasedRecycler.visibility = View.GONE
+        }
+        else {
+            binding.box1.visibility = View.GONE
+            binding.purchasedRecycler.visibility = View.VISIBLE
+        }
+
+        if ((books.filter { it.isWish } as ArrayList<Book>).isEmpty()) {
+            binding.box2.visibility = View.VISIBLE
+            binding.wishlistRecycler.visibility = View.GONE
+        }
+        else {
+            binding.box2.visibility = View.GONE
+            binding.wishlistRecycler.visibility = View.VISIBLE
+        }
+
+        binding.purchasedRecycler.adapter = BookAdapter(books.filter { it.isSaved } as ArrayList<Book>, R.layout.book_item)
         binding.purchasedRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        binding.wishlistRecycler.adapter = BookAdapter(getBooks())
+        binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item)
         binding.wishlistRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         return binding.root
@@ -46,89 +85,5 @@ class HomeFragment : Fragment() {
         genres.add(Genre("Thriller", R.drawable.thriller))
         genres.add(Genre("Action", R.drawable.action))
         return genres
-    }
-
-    fun getBooks() : ArrayList<Book> {
-        var books = ArrayList<Book>()
-
-        books.add(Book(
-            "Harry Potter",
-            "J.K. Rowling",
-            450,
-            "\n" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi feugiat ac felis eget condimentum. Nunc fermentum velit et risus accumsan, at elementum metus luctus. Aliquam a nunc non leo placerat cursus. Sed et turpis sit amet libero volutpat luctus.",
-            4.7,
-            "5.6 mb",
-            "$7.50",
-            R.drawable.img_1,
-            "Action",
-            null
-        ))
-
-        books.add(Book(
-            "Reign of Blood",
-            "Quinn Loftis",
-            235,
-            "\n" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi feugiat ac felis eget condimentum. Nunc fermentum velit et risus accumsan, at elementum metus luctus. Aliquam a nunc non leo placerat cursus. Sed et turpis sit amet libero volutpat luctus.",
-            4.9,
-            "6.9 mb",
-            "$8.50",
-            R.drawable.blood,
-            "Romance",
-            null
-        ))
-
-        books.add(Book(
-            "Harry Potter",
-            "J.K. Rowling",
-            235,
-            "\n" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi feugiat ac felis eget condimentum. Nunc fermentum velit et risus accumsan, at elementum metus luctus. Aliquam a nunc non leo placerat cursus. Sed et turpis sit amet libero volutpat luctus.",
-            4.9,
-            "6.9 mb",
-            "$8.50",
-            R.drawable.harry_potter,
-            "Action",
-            null
-        ))
-
-        books.add(Book(
-            "The Vallentine's Hate",
-            "Sidney Halston",
-            235,
-            "\n" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi feugiat ac felis eget condimentum. Nunc fermentum velit et risus accumsan, at elementum metus luctus. Aliquam a nunc non leo placerat cursus. Sed et turpis sit amet libero volutpat luctus.",
-            4.7,
-            "5.6 mb",
-            "$10.50",
-            R.drawable.valentines,
-            "Romance",
-            null
-        ))
-
-        books.add(Book(
-            "Harry Potter",
-            "J.K. Rowling",
-            235,
-            "\n" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi feugiat ac felis eget condimentum. Nunc fermentum velit et risus accumsan, at elementum metus luctus. Aliquam a nunc non leo placerat cursus. Sed et turpis sit amet libero volutpat luctus.",
-            4.9,
-            "6.9 mb",
-            "$8.50",
-            R.drawable.harry_potter2,
-            "Action",
-            null
-        ))
-
-        books.add(Book(
-            "Keeper of Secrets",
-            "Denise Grover",
-            235,
-            "\n" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi feugiat ac felis eget condimentum. Nunc fermentum velit et risus accumsan, at elementum metus luctus. Aliquam a nunc non leo placerat cursus. Sed et turpis sit amet libero volutpat luctus.",
-            4.7,
-            "5.6 mb",
-            "$11.50",
-            R.drawable.img_3,
-            "Romance",
-            null
-        ))
-
-        return books
     }
 }

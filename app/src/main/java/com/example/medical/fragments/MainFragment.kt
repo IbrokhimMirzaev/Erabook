@@ -24,11 +24,11 @@ class MainFragment : Fragment() {
                     true
                 }
                 R.id.wishlist -> {
-                    loadFragment(HomeFragment())
+                    loadFragment(WishlistFragment())
                     true
                 }
                 R.id.purchased -> {
-                    loadFragment(HomeFragment())
+                    loadFragment(SavedFragment())
                     true
                 }
                 R.id.account -> {

@@ -9,12 +9,22 @@ import com.example.medical.R
 import com.example.medical.model.Book
 import com.google.android.material.imageview.ShapeableImageView
 
-class BookAdapter(var books : ArrayList<Book>, var itemLayout: Int = R.layout.book_item) : RecyclerView.Adapter<BookAdapter.MyHolder>() {
+class BookAdapter(
+    var books: ArrayList<Book>,
+    var itemLayout: Int = R.layout.book_item,
+    private var myInterface: MyInterface = object : MyInterface {
+        override fun onItemTap(index: Int) {}
+    }
+) : RecyclerView.Adapter<BookAdapter.MyHolder>() {
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var name = itemView.findViewById<TextView>(R.id.bookName)
         var img = itemView.findViewById<ShapeableImageView>(R.id.bookImg)
         var price = itemView.findViewById<TextView>(R.id.bookPrice)
         var rating = itemView.findViewById<TextView>(R.id.bookRating)
+    }
+
+    interface MyInterface {
+        fun onItemTap(index: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -31,5 +41,9 @@ class BookAdapter(var books : ArrayList<Book>, var itemLayout: Int = R.layout.bo
         holder.img.setImageResource(book.img)
         holder.price.text = book.price
         holder.rating.text = book.rating.toString()
+
+        holder.itemView.setOnClickListener {
+            myInterface.onItemTap(position)
+        }
     }
 }
