@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.medical.R
@@ -76,6 +78,27 @@ class HomeFragment : Fragment() {
 
         binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item)
         binding.wishlistRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        binding.editText.addTextChangedListener {
+            if (binding.editText.text.toString().isNotEmpty()) {
+                var filterBooks: ArrayList<Book> = ArrayList()
+                for (i in books) {
+                    if (i.name.lowercase().trim().contains(binding.editText.text.toString().lowercase().trim())) {
+                        filterBooks.add(i)
+                    }
+                }
+                binding.mainRecycler.adapter = BookAdapter(filterBooks)
+            } else {
+                binding.mainRecycler.adapter = BookAdapter(books)
+            }
+        }
+
+        binding.editText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.editText.clearFocus()
+            }
+            false
+        }
 
         return binding.root
     }
