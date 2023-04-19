@@ -16,7 +16,7 @@ class GenreAdapter(var genres : ArrayList<Genre>, var myInterface: MyInterface) 
     }
 
     interface MyInterface {
-        fun onItemTap(name: String)
+        fun onItemTap(index: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -33,7 +33,7 @@ class GenreAdapter(var genres : ArrayList<Genre>, var myInterface: MyInterface) 
         holder.img.setImageResource(genre.img)
 
         holder.itemView.setOnClickListener {
-            myInterface.onItemTap(holder.name.text.toString())
+            myInterface.onItemTap(position)
         }
     }
 }

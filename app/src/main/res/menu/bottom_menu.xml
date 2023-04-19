@@ -10,8 +10,8 @@
         android:title="Wishlist" />
     <item
         android:id="@+id/purchased"
-        android:icon="@drawable/saved"
-        android:title="Purchased" />
+        android:icon="@drawable/saved_selected"
+        android:title="Saved" />
     <item
         android:id="@+id/account"
         android:icon="@drawable/account"

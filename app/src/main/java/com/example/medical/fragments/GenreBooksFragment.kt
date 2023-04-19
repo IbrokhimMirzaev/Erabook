@@ -1,5 +1,6 @@
 package com.example.medical.fragments
 
+import android.content.Context
 import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,6 +15,9 @@ import com.example.medical.R
 import com.example.medical.adapters.BookAdapter
 import com.example.medical.databinding.FragmentGenreBooksBinding
 import com.example.medical.model.Book
+import com.example.medical.model.Genre
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class GenreBooksFragment : Fragment() {
     override fun onCreateView(
@@ -22,17 +26,29 @@ class GenreBooksFragment : Fragment() {
     ): View {
         val binding = FragmentGenreBooksBinding.inflate(inflater, container, false)
 
-        var genreName = arguments?.getString("name")
-        var allBooks = arguments?.getSerializable("books") as ArrayList<Book>
+        fun getGenres() : ArrayList<Genre> {
+            var genres = ArrayList<Genre>()
+            genres.add(Genre("Romance", R.drawable.img_2))
+            genres.add(Genre("Thriller", R.drawable.thriller))
+            genres.add(Genre("Action", R.drawable.action))
+            return genres
+        }
+
+        val shared = requireContext().getSharedPreferences("shared", Context.MODE_PRIVATE)
+        val booksJson = shared.getString("books", null)
+        val gson = Gson()
+        val books = gson.fromJson<ArrayList<Book>>(booksJson, object : TypeToken<ArrayList<Book>>() {}.type)
+
+        var index = arguments?.getInt("index") ?: 0
 
         binding.arrowBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        binding.genreName.text = genreName
+        binding.genreName.text = getGenres()[index].name
 
         binding.rv.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.rv.adapter = BookAdapter(allBooks.filter { it.genreName == genreName } as ArrayList<Book>, R.layout.book_item)
+        binding.rv.adapter = BookAdapter(books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>, R.layout.book_item)
 
         val mainColor = ContextCompat.getColor(requireContext(), R.color.mainColor)
         val blackColor = ContextCompat.getColor(requireContext(), R.color.black)
@@ -40,7 +56,7 @@ class GenreBooksFragment : Fragment() {
 
         binding.myGrid.setOnClickListener {
             binding.rv.layoutManager = GridLayoutManager(requireContext(), 2)
-            binding.rv.adapter = BookAdapter(allBooks.filter { it.genreName == genreName } as ArrayList<Book>, R.layout.book_item)
+            binding.rv.adapter = BookAdapter(books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>, R.layout.book_item)
 
             binding.myGrid.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)
             binding.linearGrid.setColorFilter(blackColor, PorterDuff.Mode.SRC_ATOP)
@@ -48,13 +64,13 @@ class GenreBooksFragment : Fragment() {
 
         binding.linearGrid.setOnClickListener {
             binding.rv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            binding.rv.adapter = BookAdapter(allBooks.filter { it.genreName == genreName } as ArrayList<Book>, R.layout.book_item2)
+            binding.rv.adapter = BookAdapter(books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>, R.layout.book_item2)
 
             binding.linearGrid.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)
             binding.myGrid.setColorFilter(blackColor, PorterDuff.Mode.SRC_ATOP)
         }
 
-        if ((allBooks.filter { it.genreName == genreName } as ArrayList<Book>).isEmpty()) {
+        if ((books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>).isEmpty()) {
             binding.notFound.visibility = View.VISIBLE
             binding.rv.visibility = View.GONE
         } else {

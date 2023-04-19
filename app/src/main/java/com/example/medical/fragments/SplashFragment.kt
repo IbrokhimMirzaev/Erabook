@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.medical.R
+import com.example.medical.books.BookApi
 import com.example.medical.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
@@ -18,6 +19,7 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentSplashBinding.inflate(inflater, container, false)
+
 
         val shared = requireContext().getSharedPreferences("shared", AppCompatActivity.MODE_PRIVATE)
         var users = shared.getString("users", "")
