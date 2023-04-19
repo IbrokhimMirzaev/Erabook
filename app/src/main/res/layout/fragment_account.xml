@@ -75,6 +75,9 @@
         android:background="@color/hintTextColor"/>
 
     <LinearLayout
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@drawable/my_animator"
         android:id="@+id/personalInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -186,6 +189,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@drawable/my_animator"
         android:orientation="horizontal"
         android:paddingStart="5dp">
 

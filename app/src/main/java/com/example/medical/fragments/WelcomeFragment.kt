@@ -18,6 +18,9 @@ class WelcomeFragment : Fragment() {
         binding.getStartedBtn.setOnClickListener {
             findNavController().navigate(R.id.action_welcomeFragment_to_genderFragment)
         }
+        binding.alreadyBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_welcomeFragment_to_signInFragment)
+        }
         return binding.root
     }
 }

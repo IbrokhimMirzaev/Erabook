@@ -9,7 +9,7 @@ import com.example.medical.R
 import com.example.medical.model.Book
 import com.google.android.material.imageview.ShapeableImageView
 
-class BookAdapter(var books : ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.MyHolder>() {
+class BookAdapter(var books : ArrayList<Book>, var itemLayout: Int = R.layout.book_item) : RecyclerView.Adapter<BookAdapter.MyHolder>() {
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var name = itemView.findViewById<TextView>(R.id.bookName)
         var img = itemView.findViewById<ShapeableImageView>(R.id.bookImg)
@@ -18,7 +18,7 @@ class BookAdapter(var books : ArrayList<Book>) : RecyclerView.Adapter<BookAdapte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
-        return MyHolder(LayoutInflater.from(parent.context).inflate(R.layout.book_item, parent, false))
+        return MyHolder(LayoutInflater.from(parent.context).inflate(itemLayout, parent, false))
     }
 
     override fun getItemCount(): Int {
