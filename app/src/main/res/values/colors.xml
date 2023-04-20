@@ -11,4 +11,5 @@
     <color name="editBgColor">#FAFAFA</color>
     <color name="hintTextColor">#9E9E9E</color>
     <color name="focusedBgColor">#EFF4FF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

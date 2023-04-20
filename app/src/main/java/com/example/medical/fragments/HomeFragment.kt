@@ -81,6 +81,7 @@ class HomeFragment : Fragment() {
 
         binding.editText.addTextChangedListener {
             if (binding.editText.text.toString().isNotEmpty()) {
+                binding.others.visibility = View.GONE
                 var filterBooks: ArrayList<Book> = ArrayList()
                 for (i in books) {
                     if (i.name.lowercase().trim().contains(binding.editText.text.toString().lowercase().trim())) {
@@ -90,6 +91,7 @@ class HomeFragment : Fragment() {
                 binding.mainRecycler.adapter = BookAdapter(filterBooks)
             } else {
                 binding.mainRecycler.adapter = BookAdapter(books)
+                binding.others.visibility = View.VISIBLE
             }
         }
 
