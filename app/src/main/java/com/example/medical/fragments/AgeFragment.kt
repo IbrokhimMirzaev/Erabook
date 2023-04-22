@@ -23,16 +23,7 @@ class AgeFragment : Fragment(), OnClickListener {
     ): View {
         binding = FragmentAgeBinding.inflate(inflater, container, false)
 
-        ageButtons = mutableListOf(
-            binding.first,
-            binding.second,
-            binding.third,
-            binding.fourth,
-            binding.fifth,
-            binding.sixth,
-            binding.seventh,
-            binding.eights
-        )
+        ageButtons = mutableListOf(binding.first, binding.second, binding.third, binding.fourth, binding.fifth, binding.sixth, binding.seventh, binding.eights)
 
         binding.first.setOnClickListener(this)
         binding.second.setOnClickListener(this)

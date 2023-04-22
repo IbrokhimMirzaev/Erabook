@@ -132,7 +132,7 @@
                 android:textSize="14sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/purchasedRecycler"
+                android:id="@+id/saved_recycler"
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

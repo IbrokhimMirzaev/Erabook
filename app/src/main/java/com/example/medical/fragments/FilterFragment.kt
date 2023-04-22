@@ -1,6 +1,7 @@
 package com.example.medical.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.provider.MediaStore.Audio.Radio
 import android.util.Log
@@ -19,13 +20,15 @@ import com.example.medical.databinding.FragmentFilterBinding
 import com.google.gson.Gson
 
 class FilterFragment : Fragment() {
+    lateinit var shared: SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentFilterBinding.inflate(inflater, container, false)
 
-        val shared = requireContext().getSharedPreferences("shared", Context.MODE_PRIVATE)
+        shared = requireContext().getSharedPreferences("shared", Context.MODE_PRIVATE)
 
         var checkedButtonText = shared.getString("radioCheckedText", "")
         var romance = shared.getBoolean("romance", false)
@@ -80,25 +83,22 @@ class FilterFragment : Fragment() {
                 shared.edit().putString("radioCheckedText", radioButton.text.toString()).apply()
             }
 
-            if (binding.romance.isChecked) {
-                shared.edit().putBoolean("romance", true).apply()
-            } else {
-                shared.edit().putBoolean("romance", false).apply()
-            }
-            if (binding.thriller.isChecked) {
-                shared.edit().putBoolean("thriller", true).apply()
-            } else {
-                shared.edit().putBoolean("thriller", false).apply()
-            }
-            if (binding.action.isChecked) {
-                shared.edit().putBoolean("action", true).apply()
-            } else {
-                shared.edit().putBoolean("action", false).apply()
-            }
+            changeStatus(binding.romance.isChecked, "romance")
+            changeStatus(binding.thriller.isChecked, "thriller")
+            changeStatus(binding.action.isChecked, "action")
 
             findNavController().popBackStack()
         }
 
         return binding.root
+    }
+
+    private fun changeStatus(isChecked: Boolean, name: String) {
+        if (isChecked) {
+            shared.edit().putBoolean(name, true).apply()
+        }
+        else {
+            shared.edit().putBoolean(name, false).apply()
+        }
     }
 }
