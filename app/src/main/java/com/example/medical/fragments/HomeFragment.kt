@@ -9,9 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,14 +28,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class HomeFragment : Fragment() {
-    var checkedString: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
-
 
         val shared = requireContext().getSharedPreferences("shared", Context.MODE_PRIVATE)
         val gson = Gson()
@@ -43,32 +43,37 @@ class HomeFragment : Fragment() {
         }
 
         var booksJson = shared.getString("books", null)
-        var books = gson.fromJson<ArrayList<Book>>(booksJson, object : TypeToken<ArrayList<Book>>() {}.type)
+        var books =
+            gson.fromJson<ArrayList<Book>>(booksJson, object : TypeToken<ArrayList<Book>>() {}.type)
 
-        binding.genreRecycler.adapter = GenreAdapter(getGenres(), object: GenreAdapter.MyInterface {
-            override fun onItemTap(index: Int) {
-                val bundle = bundleOf("index" to index)
-                findNavController().navigate(R.id.genreBooksFragment, bundle)
-            }
-        })
-        binding.genreRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.genreRecycler.adapter =
+            GenreAdapter(getGenres(), object : GenreAdapter.MyInterface {
+                override fun onItemTap(index: Int) {
+                    val bundle = bundleOf("index" to index)
+                    findNavController().navigate(R.id.genreBooksFragment, bundle)
+                }
+            })
+        binding.genreRecycler.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        binding.mainRecycler.adapter = BookAdapter(books, R.layout.book_item, object : BookAdapter.MyInterface {
-            override fun onItemTap(book: Book) {
-                var bundle = bundleOf("book" to book)
-                findNavController().navigate(R.id.bookDetailFragment, bundle)
-            }
-        })
-        binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.mainRecycler.adapter =
+            BookAdapter(books, R.layout.book_item, object : BookAdapter.MyInterface {
+                override fun onItemTap(book: Book) {
+                    var bundle = bundleOf("book" to book)
+                    findNavController().navigate(R.id.bookDetailFragment, bundle)
+                }
+            })
+        binding.mainRecycler.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         val mainColor = ContextCompat.getColor(requireContext(), R.color.mainColor)
-        binding.filter.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)
+        val blackColor = ContextCompat.getColor(requireContext(), R.color.black)
+        binding.filter.setColorFilter(blackColor, PorterDuff.Mode.SRC_ATOP)
 
         if ((books.filter { it.isSaved } as ArrayList<Book>).isEmpty()) {
             binding.box1.visibility = View.VISIBLE
             binding.purchasedRecycler.visibility = View.GONE
-        }
-        else {
+        } else {
             binding.box1.visibility = View.GONE
             binding.purchasedRecycler.visibility = View.VISIBLE
         }
@@ -76,43 +81,52 @@ class HomeFragment : Fragment() {
         if ((books.filter { it.isWish } as ArrayList<Book>).isEmpty()) {
             binding.box2.visibility = View.VISIBLE
             binding.wishlistRecycler.visibility = View.GONE
-        }
-        else {
+        } else {
             binding.box2.visibility = View.GONE
             binding.wishlistRecycler.visibility = View.VISIBLE
         }
 
-        binding.purchasedRecycler.adapter = BookAdapter(books.filter { it.isSaved } as ArrayList<Book>, R.layout.book_item)
-        binding.purchasedRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.purchasedRecycler.adapter =
+            BookAdapter(books.filter { it.isSaved } as ArrayList<Book>, R.layout.book_item)
+        binding.purchasedRecycler.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item)
-        binding.wishlistRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.wishlistRecycler.adapter =
+            BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item)
+        binding.wishlistRecycler.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         binding.editText.addTextChangedListener {
             if (binding.editText.text.toString().isNotEmpty()) {
                 binding.others.visibility = View.GONE
                 var filterBooks: ArrayList<Book> = ArrayList()
                 for (i in books) {
-                    if (i.name.lowercase().trim().contains(binding.editText.text.toString().lowercase().trim())) {
+                    if (i.name.lowercase().trim()
+                            .contains(binding.editText.text.toString().lowercase().trim())
+                    ) {
                         filterBooks.add(i)
                     }
                 }
 
-                binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                binding.mainRecycler.adapter = BookAdapter(filterBooks, R.layout.book_item2, object : BookAdapter.MyInterface {
-                    override fun onItemTap(book: Book) {
-                        var bundle = bundleOf("book" to book as java.io.Serializable)
-                        findNavController().navigate(R.id.bookDetailFragment, bundle)
-                    }
-                })
+                binding.mainRecycler.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                binding.mainRecycler.adapter =
+                    BookAdapter(filterBooks, R.layout.book_item2, object : BookAdapter.MyInterface {
+                        override fun onItemTap(book: Book) {
+                            var bundle = bundleOf("book" to book as java.io.Serializable)
+                            findNavController().navigate(R.id.bookDetailFragment, bundle)
+                        }
+                    })
             } else {
-                binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                binding.mainRecycler.adapter = BookAdapter(books, R.layout.book_item, object : BookAdapter.MyInterface {
-                    override fun onItemTap(book: Book) {
-                        var bundle = bundleOf("book" to book as java.io.Serializable)
-                        findNavController().navigate(R.id.bookDetailFragment, bundle)
-                    }
-                })
+                binding.mainRecycler.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                binding.mainRecycler.adapter =
+                    BookAdapter(books, R.layout.book_item, object : BookAdapter.MyInterface {
+                        override fun onItemTap(book: Book) {
+                            var bundle = bundleOf("book" to book as java.io.Serializable)
+                            findNavController().navigate(R.id.bookDetailFragment, bundle)
+                        }
+                    })
                 binding.others.visibility = View.VISIBLE
             }
         }
@@ -128,29 +142,74 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.filterFragment)
         }
 
-        setFragmentResultListener("myResultKey") { _, result ->
-            checkedString = result.getString("checkedString") ?: ""
+        var checkedString = shared.getString("radioCheckedText", null)
+        var isFilter = shared.getBoolean("isFilter", false)
+
+        var romance = shared.getBoolean("romance", false)
+        var thriller = shared.getBoolean("thriller", false)
+        var action = shared.getBoolean("action", false)
+
+        if (isFilter) binding.filter.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)
+        else binding.filter.setColorFilter(blackColor, PorterDuff.Mode.SRC_ATOP)
+
+        if (isFilter) {
+            var filterBooks = books
+            if (checkedString == "4.5+") filterBooks = books.filter { it.rating >= 4.5} as ArrayList<Book>
+            if (checkedString == "4.0+") filterBooks = books.filter { it.rating >= 4.0} as ArrayList<Book>
+            if (romance || thriller || action) {
+                if (!romance) filterBooks.removeAll { it.genreName == "Romance" }
+                if (!thriller) filterBooks.removeAll { it.genreName == "Thriller" }
+                if (!action) filterBooks.removeAll { it.genreName == "Action" }
+            }
 
             if (checkedString == "4.5+") {
-                binding.mainRecycler.apply {
-
-                }
+                binding.mainRecycler.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                binding.mainRecycler.adapter =
+                    BookAdapter(filterBooks,
+                        R.layout.book_item2,
+                        object : BookAdapter.MyInterface {
+                            override fun onItemTap(book: Book) {
+                                var myBundle = bundleOf("book" to book as java.io.Serializable)
+                                findNavController().navigate(R.id.bookDetailFragment, myBundle)
+                            }
+                        })
+                binding.others.visibility = View.GONE
+                Toast.makeText(requireContext(), "Filter results!", Toast.LENGTH_SHORT).show()
             }
+            if (checkedString == "4.0+") {
+                binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                binding.mainRecycler.adapter =
+                    BookAdapter(filterBooks as ArrayList<Book>,
+                        R.layout.book_item2,
+                        object : BookAdapter.MyInterface {
+                            override fun onItemTap(book: Book) {
+                                var myBundle = bundleOf("book" to book as java.io.Serializable)
+                                findNavController().navigate(R.id.bookDetailFragment, myBundle)
+                            }
+                        })
+                binding.others.visibility = View.GONE
+
+                Toast.makeText(requireContext(), "Filter results!", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            binding.mainRecycler.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            binding.mainRecycler.adapter =
+                BookAdapter(books, R.layout.book_item, object : BookAdapter.MyInterface {
+                    override fun onItemTap(book: Book) {
+                        var bundle = bundleOf("book" to book as java.io.Serializable)
+                        findNavController().navigate(R.id.bookDetailFragment, bundle)
+                    }
+                })
+
+            binding.others.visibility = View.VISIBLE
         }
-
-//        binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//        binding.mainRecycler.adapter = BookAdapter(books.filter { it.rating >= 4.5 } as ArrayList<Book>, R.layout.book_item2, object : BookAdapter.MyInterface {
-//            override fun onItemTap(book: Book) {
-//                var bundle = bundleOf("book" to book as java.io.Serializable)
-//                findNavController().navigate(R.id.bookDetailFragment, bundle)
-//            }
-//        })
-
-        binding.mainRecycler.invalidate()
 
         return binding.root
     }
-    fun getGenres() : ArrayList<Genre> {
+
+    fun getGenres(): ArrayList<Genre> {
         var genres = ArrayList<Genre>()
         genres.add(Genre("Romance", R.drawable.img_2))
         genres.add(Genre("Thriller", R.drawable.thriller))

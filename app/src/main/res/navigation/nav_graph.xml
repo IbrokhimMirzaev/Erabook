@@ -108,4 +108,9 @@
         android:name="com.example.medical.fragments.FilterFragment"
         android:label="fragment_filter"
         tools:layout="@layout/fragment_filter"/>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.medical.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 </navigation>
