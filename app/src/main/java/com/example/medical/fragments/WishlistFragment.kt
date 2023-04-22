@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,20 +33,22 @@ class WishlistFragment : Fragment() {
 
         binding.wishlistRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item2, object: BookAdapter.MyInterface {
-            override fun onItemTap(index: Int) {
-                findNavController().navigate(R.id.bookDetailFragment)
+            override fun onItemTap(book: Book) {
+                var bundle = bundleOf("book" to book)
+                findNavController().navigate(R.id.bookDetailFragment, bundle)
             }
         })
 
         val mainColor = ContextCompat.getColor(requireContext(), R.color.mainColor)
         val blackColor = ContextCompat.getColor(requireContext(), R.color.black)
-        binding.myGrid.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)
+        binding.linearGrid.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)
 
         binding.myGrid.setOnClickListener {
             binding.wishlistRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
             binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item, object : BookAdapter.MyInterface {
-                override fun onItemTap(index: Int) {
-                    findNavController().navigate(R.id.bookDetailFragment)
+                override fun onItemTap(book: Book) {
+                    var bundle = bundleOf("book" to book)
+                    findNavController().navigate(R.id.bookDetailFragment, bundle)
                 }
             })
 
@@ -56,8 +59,9 @@ class WishlistFragment : Fragment() {
         binding.linearGrid.setOnClickListener {
             binding.wishlistRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item2, object : BookAdapter.MyInterface {
-                override fun onItemTap(index: Int) {
-                    findNavController().navigate(R.id.bookDetailFragment)
+                override fun onItemTap(book: Book) {
+                    var bundle = bundleOf("book" to book)
+                    findNavController().navigate(R.id.bookDetailFragment, bundle)
                 }
             })
 

@@ -3,7 +3,6 @@
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/transparent"
     android:background="@drawable/logout_bottom_corner"
     android:orientation="vertical"
     android:padding="20dp">
@@ -46,6 +45,7 @@
             android:backgroundTint="#FEF4E6"
             android:textColor="@color/mainColor"
             android:layout_marginEnd="10dp"
+            android:fontFamily="@font/pop_500"
             android:textSize="16sp"
             android:layout_weight="1"
             android:text="Cancel"
@@ -58,6 +58,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
+            android:fontFamily="@font/pop_500"
             app:cornerRadius="100dp"
             android:text="Logout"
             android:textAllCaps="false" />

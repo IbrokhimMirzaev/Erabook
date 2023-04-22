@@ -13,7 +13,7 @@ class BookAdapter(
     var books: ArrayList<Book>,
     var itemLayout: Int = R.layout.book_item,
     private var myInterface: MyInterface = object : MyInterface {
-        override fun onItemTap(index: Int) {}
+        override fun onItemTap(book: Book) {}
     }
 ) : RecyclerView.Adapter<BookAdapter.MyHolder>() {
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,7 +24,7 @@ class BookAdapter(
     }
 
     interface MyInterface {
-        fun onItemTap(index: Int)
+        fun onItemTap(book: Book)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -43,7 +43,7 @@ class BookAdapter(
         holder.rating.text = book.rating.toString()
 
         holder.itemView.setOnClickListener {
-            myInterface.onItemTap(position)
+            myInterface.onItemTap(book)
         }
     }
 }

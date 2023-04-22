@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.navigateUp
 import com.example.medical.R
 import com.example.medical.databinding.FragmentAccountBinding
 import com.example.medical.model.User
@@ -45,7 +44,7 @@ class AccountFragment : Fragment() {
 
     private fun showBottomSheet() {
         val bottomSheetView = layoutInflater.inflate(R.layout.logout_bottom_sheet, null)
-        val dialog = BottomSheetDialog(requireContext())
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog)
         dialog.setContentView(bottomSheetView)
 
         val cancelButton: MaterialButton = bottomSheetView.findViewById(R.id.cancel_button)

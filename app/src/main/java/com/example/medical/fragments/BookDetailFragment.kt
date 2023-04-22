@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.medical.R
 import com.example.medical.databinding.FragmentBookDetailBinding
 import com.example.medical.model.Book
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -28,18 +30,18 @@ class BookDetailFragment : Fragment() {
         val booksJson = shared.getString("books", null)
         val books = gson.fromJson<ArrayList<Book>>(booksJson, object : TypeToken<ArrayList<Book>>() {}.type)
 
-        var index = arguments?.getInt("index") ?: 0
+        var book = arguments?.getSerializable("book") as Book
 
         var updatableBooks = books
 
-        if (books[index].isSaved) {
+        if (book.isSaved) {
             binding.saved.setImageResource(R.drawable.saved_selected)
         }
         else {
             binding.saved.setImageResource(R.drawable.saved)
         }
 
-        if (books[index].isWish) {
+        if (book.isWish) {
             binding.wishlist.setImageResource(R.drawable.star_selected)
         }
         else {
@@ -51,8 +53,6 @@ class BookDetailFragment : Fragment() {
             shared.edit().putString("books", newBooksJson).apply()
             findNavController().popBackStack()
         }
-
-        var book = books[index]
 
         binding.bookName.text = book.name
         binding.bookImage.setImageResource(book.img)
@@ -95,6 +95,18 @@ class BookDetailFragment : Fragment() {
             }
         }
 
+        binding.share.setOnClickListener {
+            showBottomSheet()
+        }
+
         return binding.root
     }
+
+    private fun showBottomSheet() {
+        val bottomSheetView = layoutInflater.inflate(R.layout.share_bottom_sheet, null)
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog)
+        dialog.setContentView(bottomSheetView)
+        dialog.show()
+    }
+
 }

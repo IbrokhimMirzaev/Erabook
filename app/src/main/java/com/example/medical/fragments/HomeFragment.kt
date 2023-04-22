@@ -1,14 +1,18 @@
 package com.example.medical.fragments
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.medical.R
@@ -22,6 +26,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class HomeFragment : Fragment() {
+    var checkedString: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,12 +54,15 @@ class HomeFragment : Fragment() {
         binding.genreRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         binding.mainRecycler.adapter = BookAdapter(books, R.layout.book_item, object : BookAdapter.MyInterface {
-            override fun onItemTap(index: Int) {
-                var bundle = bundleOf("index" to index)
+            override fun onItemTap(book: Book) {
+                var bundle = bundleOf("book" to book)
                 findNavController().navigate(R.id.bookDetailFragment, bundle)
             }
         })
         binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        val mainColor = ContextCompat.getColor(requireContext(), R.color.mainColor)
+        binding.filter.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)
 
         if ((books.filter { it.isSaved } as ArrayList<Book>).isEmpty()) {
             binding.box1.visibility = View.VISIBLE
@@ -88,9 +97,22 @@ class HomeFragment : Fragment() {
                         filterBooks.add(i)
                     }
                 }
-                binding.mainRecycler.adapter = BookAdapter(filterBooks)
+
+                binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                binding.mainRecycler.adapter = BookAdapter(filterBooks, R.layout.book_item2, object : BookAdapter.MyInterface {
+                    override fun onItemTap(book: Book) {
+                        var bundle = bundleOf("book" to book as java.io.Serializable)
+                        findNavController().navigate(R.id.bookDetailFragment, bundle)
+                    }
+                })
             } else {
-                binding.mainRecycler.adapter = BookAdapter(books)
+                binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                binding.mainRecycler.adapter = BookAdapter(books, R.layout.book_item, object : BookAdapter.MyInterface {
+                    override fun onItemTap(book: Book) {
+                        var bundle = bundleOf("book" to book as java.io.Serializable)
+                        findNavController().navigate(R.id.bookDetailFragment, bundle)
+                    }
+                })
                 binding.others.visibility = View.VISIBLE
             }
         }
@@ -101,6 +123,30 @@ class HomeFragment : Fragment() {
             }
             false
         }
+
+        binding.filter.setOnClickListener {
+            findNavController().navigate(R.id.filterFragment)
+        }
+
+        setFragmentResultListener("myResultKey") { _, result ->
+            checkedString = result.getString("checkedString") ?: ""
+
+            if (checkedString == "4.5+") {
+                binding.mainRecycler.apply {
+
+                }
+            }
+        }
+
+//        binding.mainRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//        binding.mainRecycler.adapter = BookAdapter(books.filter { it.rating >= 4.5 } as ArrayList<Book>, R.layout.book_item2, object : BookAdapter.MyInterface {
+//            override fun onItemTap(book: Book) {
+//                var bundle = bundleOf("book" to book as java.io.Serializable)
+//                findNavController().navigate(R.id.bookDetailFragment, bundle)
+//            }
+//        })
+
+        binding.mainRecycler.invalidate()
 
         return binding.root
     }

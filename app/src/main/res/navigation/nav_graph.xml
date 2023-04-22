@@ -102,4 +102,10 @@
         android:name="com.example.medical.fragments.BookDetailFragment"
         android:label="fragment_book_detail"
         tools:layout="@layout/fragment_book_detail" />
+
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.medical.fragments.FilterFragment"
+        android:label="fragment_filter"
+        tools:layout="@layout/fragment_filter"/>
 </navigation>
