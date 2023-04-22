@@ -43,6 +43,15 @@ class SavedFragment : Fragment() {
                     }
                 })
 
+        if ((books.filter { it.isSaved }).isEmpty()) {
+            binding.savedRv.visibility = View.GONE
+            binding.box.visibility = View.VISIBLE
+        }
+        else {
+            binding.savedRv.visibility = View.VISIBLE
+            binding.box.visibility = View.GONE
+        }
+
         val mainColor = ContextCompat.getColor(requireContext(), R.color.mainColor)
         val blackColor = ContextCompat.getColor(requireContext(), R.color.black)
         binding.linearGrid.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)

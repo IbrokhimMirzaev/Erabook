@@ -39,6 +39,15 @@ class WishlistFragment : Fragment() {
             }
         })
 
+        if ((books.filter { it.isWish }).isEmpty()) {
+            binding.wishlistRecycler.visibility = View.GONE
+            binding.box.visibility = View.VISIBLE
+        }
+        else {
+            binding.wishlistRecycler.visibility = View.VISIBLE
+            binding.box.visibility = View.GONE
+        }
+
         val mainColor = ContextCompat.getColor(requireContext(), R.color.mainColor)
         val blackColor = ContextCompat.getColor(requireContext(), R.color.black)
         binding.linearGrid.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)

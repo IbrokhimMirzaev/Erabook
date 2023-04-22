@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/pop_600"
-                android:text="On Your Purchased"
+                android:text="On Your Saved"
                 android:textColor="#4D4D4D"
                 android:layout_marginTop="30dp"
                 android:textSize="14sp" />
