@@ -2,6 +2,7 @@ package com.example.medical.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +19,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class BookDetailFragment : Fragment() {
+    lateinit var binding: FragmentBookDetailBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        val binding = FragmentBookDetailBinding.inflate(inflater, container, false)
+        binding = FragmentBookDetailBinding.inflate(inflater, container, false)
 
         val shared = requireContext().getSharedPreferences("shared", Context.MODE_PRIVATE)
         val gson = Gson()
@@ -49,8 +51,6 @@ class BookDetailFragment : Fragment() {
         }
 
         binding.arrowBack.setOnClickListener {
-            val newBooksJson = gson.toJson(updatableBooks)
-            shared.edit().putString("books", newBooksJson).apply()
             findNavController().popBackStack()
         }
 
@@ -62,37 +62,17 @@ class BookDetailFragment : Fragment() {
         binding.pageCount.text = book.pages.toString()
 
         binding.saved.setOnClickListener {
-            for (i in 0 until updatableBooks.size) {
-                if (updatableBooks[i] == book) {
-                    if (updatableBooks[i].isSaved) {
-                        binding.saved.setImageResource(R.drawable.saved)
-                        updatableBooks[i].isSaved = false
-                    }
-                    else {
-                        binding.saved.setImageResource(R.drawable.saved_selected)
-                        updatableBooks[i].isSaved = true
-                        Toast.makeText(requireContext(), "Added to saved list", Toast.LENGTH_SHORT).show()
-                    }
-                    return@setOnClickListener
-                }
-            }
+            changeBookStatus(true, updatableBooks, book)
+            val newBooksJson = gson.toJson(updatableBooks)
+            shared.edit().putString("books", newBooksJson).apply()
+            updatableBooks = gson.fromJson(newBooksJson, object : TypeToken<ArrayList<Book>>() {}.type)
         }
 
         binding.wishlist.setOnClickListener {
-            for (i in updatableBooks) {
-                if (i == book) {
-                    if (i.isWish) {
-                        binding.wishlist.setImageResource(R.drawable.star)
-                        i.isWish = false
-                    }
-                    else {
-                        binding.wishlist.setImageResource(R.drawable.star_selected)
-                        i.isWish = true
-                        Toast.makeText(requireContext(), "Added to wishlist", Toast.LENGTH_SHORT).show()
-                    }
-                    return@setOnClickListener
-                }
-            }
+            changeBookStatus(false, updatableBooks, book)
+            val newBooksJson = gson.toJson(updatableBooks)
+            shared.edit().putString("books", newBooksJson).apply()
+            updatableBooks = gson.fromJson(newBooksJson, object : TypeToken<ArrayList<Book>>() {}.type)
         }
 
         binding.share.setOnClickListener {
@@ -109,4 +89,36 @@ class BookDetailFragment : Fragment() {
         dialog.show()
     }
 
+    private fun changeBookStatus(forSaved: Boolean, updatableBooks: ArrayList<Book>, book: Book) {
+        for (i in updatableBooks) {
+            if (i == book) {
+                if (forSaved) {
+                    if (i.isSaved) {
+                        binding.saved.setImageResource(R.drawable.saved)
+                        i.isSaved = false
+                        book.isSaved = false
+                    }
+                    else {
+                        binding.saved.setImageResource(R.drawable.saved_selected)
+                        i.isSaved = true
+                        book.isSaved = true
+                        Toast.makeText(requireContext(), "Added to saved", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else {
+                    if (i.isWish) {
+                        binding.wishlist.setImageResource(R.drawable.star)
+                        i.isWish = false
+                        book.isWish = false
+                    }
+                    else {
+                        binding.wishlist.setImageResource(R.drawable.star_selected)
+                        i.isWish = true
+                        book.isWish = true
+                        Toast.makeText(requireContext(), "Added to wishlist", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
 }
