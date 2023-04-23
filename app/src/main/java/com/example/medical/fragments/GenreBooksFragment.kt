@@ -48,7 +48,7 @@ class GenreBooksFragment : Fragment() {
         binding.genreName.text = getGenres()[index].name
 
         binding.rv.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.rv.adapter = BookAdapter(books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>, R.layout.book_item)
+        binding.rv.adapter = BookAdapter(books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>, R.layout.book_item, requireContext())
 
         val mainColor = ContextCompat.getColor(requireContext(), R.color.mainColor)
         val blackColor = ContextCompat.getColor(requireContext(), R.color.black)
@@ -56,7 +56,7 @@ class GenreBooksFragment : Fragment() {
 
         binding.myGrid.setOnClickListener {
             binding.rv.layoutManager = GridLayoutManager(requireContext(), 2)
-            binding.rv.adapter = BookAdapter(books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>, R.layout.book_item)
+            binding.rv.adapter = BookAdapter(books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>, R.layout.book_item, requireContext())
 
             binding.myGrid.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)
             binding.linearGrid.setColorFilter(blackColor, PorterDuff.Mode.SRC_ATOP)
@@ -64,7 +64,7 @@ class GenreBooksFragment : Fragment() {
 
         binding.linearGrid.setOnClickListener {
             binding.rv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            binding.rv.adapter = BookAdapter(books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>, R.layout.book_item2)
+            binding.rv.adapter = BookAdapter(books.filter { it.genreName == getGenres()[index].name } as ArrayList<Book>, R.layout.book_item2, requireContext())
 
             binding.linearGrid.setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP)
             binding.myGrid.setColorFilter(blackColor, PorterDuff.Mode.SRC_ATOP)

@@ -53,10 +53,10 @@ class HomeFragment : Fragment() {
         changeSavedBooksVisibility()
         changeWishBooksVisibility()
 
-        binding.savedRecycler.adapter = BookAdapter(books.filter { it.isSaved } as ArrayList<Book>, R.layout.book_item)
+        binding.savedRecycler.adapter = BookAdapter(books.filter { it.isSaved } as ArrayList<Book>, R.layout.book_item, requireContext())
         binding.savedRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item)
+        binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item, requireContext())
         binding.wishlistRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         binding.editText.addTextChangedListener {
@@ -145,7 +145,7 @@ class HomeFragment : Fragment() {
 
     private fun setMainDefaultRvUI() {
         binding.mainRecycler.adapter =
-            BookAdapter(books, R.layout.book_item, object : BookAdapter.MyInterface {
+            BookAdapter(books, R.layout.book_item, requireContext(), object : BookAdapter.MyInterface {
                 override fun onItemTap(book: Book) {
                     var bundle = bundleOf("book" to book)
                     findNavController().navigate(R.id.bookDetailFragment, bundle)
@@ -157,7 +157,7 @@ class HomeFragment : Fragment() {
 
     private fun changeListOfMainRvAdapterUI(newList: ArrayList<Book>, newLayout: Int) {
         binding.mainRecycler.adapter =
-            BookAdapter(newList, newLayout, object : BookAdapter.MyInterface {
+            BookAdapter(newList, newLayout, requireContext(), object : BookAdapter.MyInterface {
                 override fun onItemTap(book: Book) {
                     var bundle = bundleOf("book" to book)
                     findNavController().navigate(R.id.bookDetailFragment, bundle)

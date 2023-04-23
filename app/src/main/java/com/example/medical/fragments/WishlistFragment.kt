@@ -32,7 +32,7 @@ class WishlistFragment : Fragment() {
         val books = gson.fromJson<ArrayList<Book>>(booksJson, object : TypeToken<ArrayList<Book>>() {}.type)
 
         binding.wishlistRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item2, object: BookAdapter.MyInterface {
+        binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item2, requireContext(), object: BookAdapter.MyInterface {
             override fun onItemTap(book: Book) {
                 var bundle = bundleOf("book" to book)
                 findNavController().navigate(R.id.bookDetailFragment, bundle)
@@ -54,7 +54,7 @@ class WishlistFragment : Fragment() {
 
         binding.myGrid.setOnClickListener {
             binding.wishlistRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
-            binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item, object : BookAdapter.MyInterface {
+            binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item, requireContext(), object : BookAdapter.MyInterface {
                 override fun onItemTap(book: Book) {
                     var bundle = bundleOf("book" to book)
                     findNavController().navigate(R.id.bookDetailFragment, bundle)
@@ -67,7 +67,7 @@ class WishlistFragment : Fragment() {
 
         binding.linearGrid.setOnClickListener {
             binding.wishlistRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item2, object : BookAdapter.MyInterface {
+            binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item2, requireContext(), object : BookAdapter.MyInterface {
                 override fun onItemTap(book: Book) {
                     var bundle = bundleOf("book" to book)
                     findNavController().navigate(R.id.bookDetailFragment, bundle)

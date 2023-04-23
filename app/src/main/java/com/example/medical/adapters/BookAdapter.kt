@@ -1,8 +1,10 @@
 package com.example.medical.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.medical.R
@@ -12,6 +14,7 @@ import com.google.android.material.imageview.ShapeableImageView
 class BookAdapter(
     var books: ArrayList<Book>,
     var itemLayout: Int = R.layout.book_item,
+    var context: Context,
     private var myInterface: MyInterface = object : MyInterface {
         override fun onItemTap(book: Book) {}
     }
@@ -41,6 +44,9 @@ class BookAdapter(
         holder.img.setImageResource(book.img)
         holder.price.text = book.price
         holder.rating.text = book.rating.toString()
+
+        val anim = AnimationUtils.loadAnimation(context, R.anim.item_amin)
+        holder.itemView.startAnimation(anim)
 
         holder.itemView.setOnClickListener {
             myInterface.onItemTap(book)

@@ -36,6 +36,7 @@ class SavedFragment : Fragment() {
         binding.savedRv.adapter =
             BookAdapter(books.filter { it.isSaved } as ArrayList<Book>,
                 R.layout.book_item2,
+                requireContext(),
                 object : BookAdapter.MyInterface {
                     override fun onItemTap(book: Book) {
                         var bundle = bundleOf("book" to book)
@@ -61,6 +62,7 @@ class SavedFragment : Fragment() {
             binding.savedRv.adapter =
                 BookAdapter(books.filter { it.isSaved } as ArrayList<Book>,
                     R.layout.book_item,
+                    requireContext(),
                     object : BookAdapter.MyInterface {
                         override fun onItemTap(book: Book) {
                             var bundle = bundleOf("book" to book)
@@ -77,6 +79,7 @@ class SavedFragment : Fragment() {
             binding.savedRv.adapter =
                 BookAdapter(books.filter { it.isSaved } as ArrayList<Book>,
                     R.layout.book_item2,
+                    requireContext(),
                     object : BookAdapter.MyInterface {
                         override fun onItemTap(book: Book) {
                             var bundle = bundleOf("book" to book)
