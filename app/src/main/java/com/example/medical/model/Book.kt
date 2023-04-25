@@ -10,7 +10,7 @@ data class Book(
     var price: String,
     var img: Int,
     var genreName: String,
-    var reviews: ArrayList<Review>?,
+    var review: String?,
     var isSaved: Boolean = false,
     var isWish: Boolean = false,
 ) : java.io.Serializable

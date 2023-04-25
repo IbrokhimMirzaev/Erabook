@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+    tools:context=".fragments.BookDetailFragment"
+    >
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".fragments.BookDetailFragment">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -244,6 +250,7 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/shareButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
@@ -284,46 +291,148 @@
         android:textColor="@color/black"
         android:textSize="16sp" />
 
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:isIndicator="false"
+        android:stepSize="0.5"
+        android:progressTint="@color/mainColor"/>
     <LinearLayout
+        android:id="@+id/rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:paddingHorizontal="55dp"
-        android:layout_marginBottom="25dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Describe Your Experience (Optional)"
+            android:fontFamily="@font/pop_600"
+            android:textColor="@color/black"
+            />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/star" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:boxStrokeColor="@color/mainColor"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:hintTextAppearance="@style/TextLabel">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pop_600"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            >
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/star" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancelBtn"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                app:cornerRadius="100dp"
+                android:backgroundTint="#FEF4E6"
+                android:textColor="@color/mainColor"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/pop_500"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:text="Cancel"
+                android:textAllCaps="false" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/star" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/star" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/star" />
-
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/submitBtn"
+                android:layout_width="0dp"
+                android:textSize="16sp"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/pop_500"
+                app:cornerRadius="100dp"
+                android:includeFontPadding="false"
+                android:text="Submit"
+                android:textAllCaps="false" />
+        </LinearLayout>
     </LinearLayout>
 
-
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/endcommentlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="50dp"
+                android:src="@drawable/boy"/>
+            <TextView
+                android:id="@+id/userName"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pop_800"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Doniyor"/>
+            <androidx.cardview.widget.CardView
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="75dp"
+                android:backgroundTint="@color/mainColor"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/star"
+                    android:layout_marginStart="13dp"/>
+                    <TextView
+                        android:id="@+id/myrating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:fontFamily="@font/pop_600"
+                        android:textColor="@color/black"
+                        android:textSize="23dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="10dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/endcomment"
+            android:layout_margin="25dp"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pop_600"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>
