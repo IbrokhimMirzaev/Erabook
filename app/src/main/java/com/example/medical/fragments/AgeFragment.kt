@@ -34,9 +34,9 @@ class AgeFragment : Fragment(), OnClickListener {
         binding.seventh.setOnClickListener(this)
         binding.eights.setOnClickListener(this)
 
-        binding.continueBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_ageFragment_to_selectGenreFragment)
-        }
+//        binding.continueBtn.setOnClickListener {
+//            findNavController().navigate(R.id.action_ageFragment_to_selectGenreFragment)
+//        }
         return binding.root
     }
 

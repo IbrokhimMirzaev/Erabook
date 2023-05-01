@@ -188,16 +188,16 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/continueBtn"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/pop_500"
-        android:text="Continue"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:cornerRadius="100dp" />
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/continueBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="65dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:fontFamily="@font/pop_500"-->
+<!--        android:text="Continue"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="15sp"-->
+<!--        app:cornerRadius="100dp" />-->
 
 </LinearLayout>

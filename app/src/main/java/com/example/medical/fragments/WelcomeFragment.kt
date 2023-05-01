@@ -16,7 +16,7 @@ class WelcomeFragment : Fragment() {
     ): View {
         val binding = FragmentWelcomeBinding.inflate(inflater, container, false)
         binding.getStartedBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment_to_genderFragment)
+            findNavController().navigate(R.id.action_welcomeFragment_to_onBoardingFragment)
         }
         binding.alreadyBtn.setOnClickListener {
             findNavController().navigate(R.id.action_welcomeFragment_to_signInFragment)

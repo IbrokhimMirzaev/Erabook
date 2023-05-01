@@ -31,9 +31,9 @@ class SelectGenreFragment : Fragment(), View.OnClickListener {
         binding.biography.setOnClickListener(this)
         binding.travel.setOnClickListener(this)
 
-        binding.continueBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_selectGenreFragment_to_signUpFragment)
-        }
+//        binding.continueBtn.setOnClickListener {
+//            findNavController().navigate(R.id.action_selectGenreFragment_to_signUpFragment)
+//        }
         return binding.root
     }
 

@@ -59,26 +59,26 @@ class HomeFragment : Fragment() {
         binding.wishlistRecycler.adapter = BookAdapter(books.filter { it.isWish } as ArrayList<Book>, R.layout.book_item, requireContext())
         binding.wishlistRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        binding.editText.addTextChangedListener {
-            if (binding.editText.text.toString().isNotEmpty()) {
-                binding.others.visibility = View.GONE
-                var filterBooks: ArrayList<Book> = ArrayList()
-                for (i in books) {
-                    if (i.name.lowercase().trim()
-                            .contains(binding.editText.text.toString().lowercase().trim())
-                    ) {
-                        filterBooks.add(i)
+            binding.editText.addTextChangedListener {
+                if (binding.editText.text.toString().isNotEmpty()) {
+                    binding.others.visibility = View.GONE
+                    var filterBooks: ArrayList<Book> = ArrayList()
+                    for (i in books) {
+                        if (i.name.lowercase().trim()
+                                .contains(binding.editText.text.toString().lowercase().trim())
+                        ) {
+                            filterBooks.add(i)
+                        }
                     }
-                }
 
-                binding.mainRecycler.layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                changeListOfMainRvAdapterUI(filterBooks, R.layout.book_item2)
-            } else {
-                setMainDefaultRvUI()
-                binding.others.visibility = View.VISIBLE
+                    binding.mainRecycler.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    changeListOfMainRvAdapterUI(filterBooks, R.layout.book_item2)
+                } else {
+                    setMainDefaultRvUI()
+                    binding.others.visibility = View.VISIBLE
+                }
             }
-        }
 
         binding.editText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {

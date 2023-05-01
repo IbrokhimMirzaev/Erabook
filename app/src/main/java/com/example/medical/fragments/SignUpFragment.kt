@@ -65,7 +65,7 @@ class SignUpFragment : Fragment() {
                 myDialog.show()
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    findNavController().navigate(R.id.action_signUpFragment_to_mainFragment)
+                    findNavController().navigate(R.id.action_onBoardingFragment_to_mainFragment)
                     shared.edit().putString("active_user", gson.toJson(user)).apply()
                     myDialog.dismiss()
                 }, 1500)

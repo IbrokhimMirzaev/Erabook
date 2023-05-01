@@ -17,13 +17,13 @@ class GenderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentGenderBinding.inflate(inflater, container, false)
-        binding.continueBtn.setOnClickListener {
-            if (binding.radioGr.checkedRadioButtonId != -1) {
-                findNavController().navigate(R.id.action_genderFragment_to_ageFragment)
-            } else {
-                Toast.makeText(requireContext(), "Please select one of them", Toast.LENGTH_SHORT).show()
-            }
-        }
+//        binding.continueBtn.setOnClickListener {
+//            if (binding.radioGr.checkedRadioButtonId != -1) {
+//                findNavController().navigate(R.id.action_genderFragment_to_ageFragment)
+//            } else {
+//                Toast.makeText(requireContext(), "Please select one of them", Toast.LENGTH_SHORT).show()
+//            }
+//        }
         return binding.root
     }
 }
